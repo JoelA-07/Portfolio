@@ -489,7 +489,7 @@ const Portfolio = () => {
         </div>
       </Motion.section>
 
-      <footer className="py-10 text-center opacity-50 text-sm">Built with React & Tailwind - 2026</footer>
+      <footer className="py-10 text-center opacity-50 text-sm">Built with React & Tailwind by Joel - 2026</footer>
     </div>
   );
 };
