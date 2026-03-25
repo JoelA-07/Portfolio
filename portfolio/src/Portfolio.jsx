@@ -33,7 +33,7 @@ const projectsData = [
     title: 'AcadCore – Academic ERP System',
     description:
       'Built a React + SQL ERP that unifies attendance, internal marks, CBCS registration, staff allocation, and academic reporting with Redis caching, JWT/OAuth auth, and CORS/CSRF protection.',
-    github: 'https://github.com/Vishalyadevi/Eduvault-College-record-management-system',
+    github: 'https://github.com/RamPrasathM-2005/ACADCORE',
     demo: '#',
     tech: ['React.js', 'SQL', 'Redis', 'JWT', 'OAuth']
   },
