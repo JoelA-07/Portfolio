@@ -187,9 +187,9 @@ const ProjectCard = ({ project, theme }) => (
       <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-teal-500/10 text-teal-500 hover:bg-teal-500 hover:text-white transition-colors">
         <Github size={18} />
       </a>
-      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="bg-teal-500 text-white px-5 py-2 rounded-full font-semibold flex items-center gap-2 text-sm hover:bg-teal-600 transition-colors">
+      {/* <a href={project.demo} target="_blank" rel="noopener noreferrer" className="bg-teal-500 text-white px-5 py-2 rounded-full font-semibold flex items-center gap-2 text-sm hover:bg-teal-600 transition-colors">
         Live Demo <ExternalLink size={14} />
-      </a>
+      </a> */}
     </div>
   </Motion.div>
 );
@@ -341,8 +341,8 @@ const Portfolio = () => {
 
       <header id="hero" className="pt-64 pb-20 px-6 text-center">
         <Motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-[0.2em] uppercase leading-tight font-['Bebas_Neue']">
-            Joel A <br /> CSE Student
+          <h1 className="text-5xl md:text-7xl font-semibold mb-4 tracking-[0.18em] uppercase leading-tight font-['Playfair_Display']">
+            Joel A <br />
           </h1>
           <p className={`text-lg md:text-xl ${theme.secondary} mb-3`}>Full-Stack and Mobile Developer</p>
           <p className={`text-sm md:text-base ${theme.secondary} mb-10`}>Strong in problem-solving, DSA, and building real-world software systems.</p>
