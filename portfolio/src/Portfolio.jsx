@@ -264,10 +264,12 @@ const Portfolio = () => {
   const avatarSize = useTransform(scrollY, [0, 260], [210, 92]);
   const avatarY = useTransform(scrollY, [0, 260], [0, -6]);
   const avatarBorder = useTransform(scrollY, [0, 260], ['5px', '2px']);
+  const avatarOpacity = useTransform(scrollY, [0, 160, 260], [1, 0.6, 0]);
 
   const smoothAvatarSize = useSpring(avatarSize, { stiffness: 130, damping: 22, mass: 0.25 });
   const smoothAvatarY = useSpring(avatarY, { stiffness: 140, damping: 20, mass: 0.2 });
   const smoothAvatarBorder = useSpring(avatarBorder, { stiffness: 140, damping: 20, mass: 0.2 });
+  const smoothAvatarOpacity = useSpring(avatarOpacity, { stiffness: 140, damping: 20, mass: 0.2 });
 
   const theme = {
     bg: darkMode ? 'bg-[#0f172a]' : 'bg-slate-50',
@@ -293,9 +295,14 @@ const Portfolio = () => {
           </button>
 
           <div className="relative">
-            <button onClick={() => setIsNavOpen(!isNavOpen)} className={`flex items-center gap-2 px-4 py-2 rounded-full ${theme.card} hover:border-teal-500 transition-colors`}>
-              <span className="text-sm font-bold">Menu</span>
-              <ChevronDown size={16} className={`transition-transform ${isNavOpen ? 'rotate-180' : ''}`} />
+            <button
+              type="button"
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              className={`w-11 h-11 md:w-12 md:h-12 rounded-full border border-teal-500 p-1 bg-[#0f172a] overflow-hidden cursor-pointer shadow-2xl flex items-center justify-center ${theme.card}`}
+              aria-label="Open menu"
+            >
+              <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
+              <span className="sr-only">Menu</span>
             </button>
             <AnimatePresence>
               {isNavOpen && (
@@ -327,18 +334,6 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      <div className="fixed top-4 left-0 right-0 z-[110] pointer-events-none flex justify-center">
-        <Motion.button
-          type="button"
-          style={{ width: smoothAvatarSize, height: smoothAvatarSize, y: smoothAvatarY, borderWidth: smoothAvatarBorder }}
-          className="rounded-full border-teal-500 p-1.5 bg-[#0f172a] overflow-hidden pointer-events-auto cursor-pointer shadow-2xl"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Scroll to top"
-        >
-          <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
-        </Motion.button>
-      </div>
-
       <header id="hero" className="pt-64 pb-20 px-6 text-center">
         <Motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-semibold mb-4 tracking-[0.18em] uppercase leading-tight font-['Playfair_Display']">
@@ -359,7 +354,7 @@ const Portfolio = () => {
             <a
               href={resume}
               download
-              className="bg-teal-500 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-teal-500/20 hover:scale-105 transition-transform inline-flex items-center gap-2"
+              className="bg-teal-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-teal-500/20 hover:scale-105 transition-transform inline-flex items-center gap-2"
             >
               Download Resume
             </a>
@@ -369,6 +364,18 @@ const Portfolio = () => {
           </div>
         </Motion.div>
       </header>
+
+      <div className="fixed top-4 left-0 right-0 z-[110] pointer-events-none flex justify-center">
+        <Motion.button
+          type="button"
+          style={{ width: smoothAvatarSize, height: smoothAvatarSize, y: smoothAvatarY, borderWidth: smoothAvatarBorder, opacity: smoothAvatarOpacity }}
+          className="rounded-full border-teal-500 p-1.5 bg-[#0f172a] overflow-hidden pointer-events-auto cursor-pointer shadow-2xl"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
+        >
+          <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
+        </Motion.button>
+      </div>
 
       <Motion.section id="profile" className={sectionClass} {...revealProps}>
         <SectionTitle icon={<BookOpen className="text-teal-500" />} title="Profile" />
