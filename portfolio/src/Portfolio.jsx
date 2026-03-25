@@ -288,7 +288,7 @@ const Portfolio = () => {
 
   return (
     <div className={`${theme.bg} ${theme.text} min-h-screen transition-colors duration-500 selection:bg-teal-500/30 overflow-x-hidden`}>
-      <nav className="fixed top-0 w-full z-[100] h-20 flex items-center px-6">
+      <nav className="fixed top-0 w-full z-[120] h-20 flex items-center px-6">
         <div className="max-w-6xl mx-auto w-full flex justify-between items-center">
           <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-full ${theme.card} hover:scale-110 transition-transform`}>
             {darkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} />}
@@ -298,15 +298,23 @@ const Portfolio = () => {
             <button
               type="button"
               onClick={() => setIsNavOpen(!isNavOpen)}
-              className={`w-11 h-11 md:w-12 md:h-12 rounded-full border border-teal-500 p-1 bg-[#0f172a] overflow-hidden cursor-pointer shadow-2xl flex items-center justify-center ${theme.card}`}
+              className={`w-11 h-11 md:w-12 md:h-12 rounded-full border border-teal-500 p-1 overflow-hidden cursor-pointer shadow-2xl flex items-center justify-center ${theme.card}`}
               aria-label="Open menu"
+              aria-expanded={isNavOpen}
+              aria-controls="main-menu"
             >
               <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
               <span className="sr-only">Menu</span>
             </button>
             <AnimatePresence>
               {isNavOpen && (
-                <Motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className={`absolute right-0 mt-3 w-48 py-2 rounded-2xl ${theme.card} backdrop-blur-xl z-[101] shadow-2xl`}>
+                <Motion.div
+                  id="main-menu"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className={`absolute right-0 mt-3 w-48 py-2 rounded-2xl ${theme.card} backdrop-blur-xl z-[101] shadow-2xl`}
+                >
                   {[
                     { id: 'hero', label: 'home' },
                     { id: 'profile', label: 'profile' },
