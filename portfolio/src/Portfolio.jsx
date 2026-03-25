@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion as Motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion as Motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 import {
   Github,
   Linkedin,
@@ -10,6 +10,7 @@ import {
   Phone,
   Sun,
   Moon,
+  Menu,
   ChevronDown,
   Trophy,
   Star,
@@ -259,6 +260,7 @@ const ContactIcon = ({ icon, label, href }) => (
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { scrollY } = useScroll();
 
   const avatarSize = useTransform(scrollY, [0, 260], [210, 92]);
@@ -270,6 +272,10 @@ const Portfolio = () => {
   const smoothAvatarY = useSpring(avatarY, { stiffness: 140, damping: 20, mass: 0.2 });
   const smoothAvatarBorder = useSpring(avatarBorder, { stiffness: 140, damping: 20, mass: 0.2 });
   const smoothAvatarOpacity = useSpring(avatarOpacity, { stiffness: 140, damping: 20, mass: 0.2 });
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setShowProfileMenu(latest >= 260);
+  });
 
   const theme = {
     bg: darkMode ? 'bg-[#0f172a]' : 'bg-slate-50',
@@ -299,12 +305,15 @@ const Portfolio = () => {
               type="button"
               onClick={() => setIsNavOpen(!isNavOpen)}
               className={`w-11 h-11 md:w-12 md:h-12 rounded-full border border-teal-500 p-1 overflow-hidden cursor-pointer shadow-2xl flex items-center justify-center ${theme.card}`}
-              aria-label="Open menu"
+              aria-label={showProfileMenu ? 'Open menu' : 'Open menu'}
               aria-expanded={isNavOpen}
               aria-controls="main-menu"
             >
-              <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
-              <span className="sr-only">Menu</span>
+              {showProfileMenu ? (
+                <img src={profile} alt="Profile" className="w-full h-full rounded-full object-cover bg-slate-700" />
+              ) : (
+                <Menu size={20} className="text-teal-500" />
+              )}
             </button>
             <AnimatePresence>
               {isNavOpen && (
@@ -344,7 +353,7 @@ const Portfolio = () => {
 
       <header id="hero" className="pt-64 pb-20 px-6 text-center">
         <Motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-semibold mb-4 tracking-[0.18em] uppercase leading-tight font-['Playfair_Display']">
+          <h1 className="text-5xl md:text-7xl font-semibold mb-4 tracking-[0.12em] uppercase leading-tight font-['Merriweather']">
             Joel A <br />
           </h1>
           <p className={`text-lg md:text-xl ${theme.secondary} mb-3`}>Full-Stack and Mobile Developer</p>
